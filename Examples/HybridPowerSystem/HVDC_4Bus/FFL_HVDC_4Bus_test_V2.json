@@ -19,7 +19,7 @@
     "DiscretizationDampingFlag": 1,
     "DirectFeedthrough": 0,
     "PowerFlowAlgorithm": 1,
-    "EnableCreateSimulinkModel": 1,
+    "EnableCreateSimulinkModel": 0,
     "EnablePlotPole": 1,
     "EnablePlotAdmittance": 0,
     "EnablePrintOutput": 1
@@ -36,7 +36,7 @@
       "BusType": 1,
       "Voltage": 1,
       "Theta": 0,
-      "PGi": 0.5,
+      "PGi": 0,
       "QGi": 0,
       "PLi": 0,
       "QLi": 0,
@@ -54,8 +54,8 @@
       "BusType": 3,
       "Voltage": 1,
       "Theta": 0,
-      "PGi": -0.5,
-      "QGi": 0,
+      "PGi": 0.6383,
+      "QGi": -0.04926,
       "PLi": 0,
       "QLi": 0,
       "Qmin": -999,
@@ -70,11 +70,11 @@
 
       "BusNo": 3,
       "BusType": 1,
-      "Voltage": 1,
+      "Voltage": 2.003,
       "Theta": 0,
-      "PGi": 0.5,
+      "PGi": 0,
       "QGi": 0,
-      "PLi": 0,
+      "PLi": 0.6436,
       "QLi": 0,
       "Qmin": -999,
       "Qmax": 999,
@@ -88,11 +88,11 @@
 
       "BusNo": 4,
       "BusType": 3,
-      "Voltage": 1,
+      "Voltage": 2.004,
       "Theta": 0,
-      "PGi": 0,
+      "PGi": 0.6437,
       "QGi": 0,
-      "PLi": 0.48,
+      "PLi": 0,
       "QLi": 0,
       "Qmin": -999,
       "Qmax": 999,
@@ -108,7 +108,7 @@
       "BusType": 1,
       "Voltage": 1,
       "Theta": 0,
-      "PGi": 0.5,
+      "PGi": 0,
       "QGi": 0,
       "PLi": 0,
       "QLi": 0,
@@ -126,9 +126,9 @@
       "BusType": 3,
       "Voltage": 1,
       "Theta": 0,
-      "PGi": 0,
+      "PGi": 0.7033,
       "QGi": 0,
-      "PLi": 0.45,
+      "PLi": 0,
       "QLi": 0,
       "Qmin": -999,
       "Qmax": 999,
@@ -148,8 +148,8 @@
 
       "FromBus": 1,
       "ToBus": 2,
-      "R": 0.03,
-      "wL": 0.3,
+      "R": 0.1,
+      "wL": 0.5,
       "wC": 0,
       "G": 0,
       "TurnsRatio": 1
@@ -161,8 +161,8 @@
 
       "FromBus": 3,
       "ToBus": 4,
-      "R": 0.03,
-      "wL": 0.3,
+      "R": 0.004,
+      "wL": 0.04,
       "wC": 0,
       "G": 0,
       "TurnsRatio": 1
@@ -174,9 +174,48 @@
 
       "FromBus": 5,
       "ToBus": 6,
-      "R": 0.03,
-      "wL": 0.3,
+      "R": 0.11,
+      "wL": 0.55,
       "wC": 0,
+      "G": 0,
+      "TurnsRatio": 1
+    
+}
+,
+    
+{
+
+      "FromBus": 6,
+      "ToBus": 6,
+      "R": "NaN",
+      "wL": "NaN",
+      "wC": 0.02,
+      "G": 0,
+      "TurnsRatio": 1
+    
+}
+,
+    
+{
+
+      "FromBus": 2,
+      "ToBus": 2,
+      "R": "NaN",
+      "wL": "NaN",
+      "wC": 0.02,
+      "G": 0,
+      "TurnsRatio": 1
+    
+}
+,
+    
+{
+
+      "FromBus": 5,
+      "ToBus": 5,
+      "R": "NaN",
+      "wL": "NaN",
+      "wC": 0.02,
       "G": 0,
       "TurnsRatio": 1
     
@@ -221,14 +260,14 @@
       "Para": 
 {
 
-        "C_dc": 1.6,
+        "C_dc": 1,
         "wL_ac": 0.05,
         "R_ac": 0.01,
-        "wL_dc": 0.02,
-        "R_dc": 0.004,
-        "fidq": 600,
-        "fvdc": 5,
-        "fpll": 5,
+        "wL_dc": 0.08,
+        "R_dc": 0.008,
+        "fidq": 0,
+        "fvdc": 0,
+        "fpll": 0,
         "w0": 314.15926535897933
       
 }
@@ -247,18 +286,18 @@
       
 ]
 ,
-      "Type": 2000,
+      "Type": 2001,
       "Para": 
 {
 
-        "C_dc": 1.6,
+        "C_dc": 1,
         "wL_ac": 0.05,
         "R_ac": 0.01,
-        "wL_dc": 0.02,
-        "R_dc": 0.004,
-        "fidq": 600,
-        "fvdc": 5,
-        "fpll": 5,
+        "wL_dc": 0.08,
+        "R_dc": 0.008,
+        "fidq": 0,
+        "fvdc": 0,
+        "fpll": 0,
         "w0": 314.15926535897933
       
 }
@@ -270,11 +309,21 @@
 {
 
       "BusNo": 6,
-      "Type": 90,
+      "Type": 12,
       "Para": 
-[
+{
 
-]
+        "V_dc": 1,
+        "C_dc": 1,
+        "f_v_dc": 5,
+        "wLf": 0.05,
+        "R": 0.01,
+        "f_pll": 10,
+        "f_tau_pll": 300,
+        "f_i_dq": 600,
+        "w0": 314.15926535897933
+      
+}
 
     
 }

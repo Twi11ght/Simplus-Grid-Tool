@@ -163,6 +163,7 @@ classdef InterlinkAcDc < SimplusGT.Class.ModelAdvance
             % State space equations
             % dx/dt = f(x,u)
             % y     = g(x,u)
+            
             if CallFlag == 1    
             % ### Call state equation: dx/dt = f(x,u)
                 

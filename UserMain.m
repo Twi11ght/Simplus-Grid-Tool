@@ -27,9 +27,11 @@ clear all; clc; close all;
 % UserDataName = 'GfdBuckInfiniteBus';         % Single grid-feeding buck converter and infinite bus
 % UserDataName = 'TwoBusGfdBuck';              % Two buck converters
 %
+
 % Hybrid ac-dc power system examples:
 % UserDataName = 'Hybrid_4Bus';             % A 4-bus hybrid ac-dc system
-UserDataName = 'FFL_HVDC_4Bus_test';             % A 4-bus FFL-HVDC system with GFL & inf bus on each side
+UserDataName = 'FFL_HVDC_4Bus_test_v2';             % A 4-bus FFL-HVDC system with GFL & inf bus on each side
+% UserDataName = 'HVDC_test';             % A 4-bus FFL-HVDC system with GFL & inf bus on each side by Wenjie Ning
 % UserDataName = 'Hybrid_28Bus';
 % UserDataName = 'HVDC_Infbus_4Bus';        % HVDC system connected to inf buses
 % UserDataName = 'HVDC_SG_4Bus';            % HVDC system connected to equivalent SG buses
