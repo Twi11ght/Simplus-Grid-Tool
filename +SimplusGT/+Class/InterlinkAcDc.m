@@ -61,6 +61,11 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             Vg_ac   = obj.PowerFlow(3);
             xi      = obj.PowerFlow(4);
             w       = obj.PowerFlow(5);
+            % if     obj.ApparatusType==2000
+            %    P_dc = -0.6437;
+            % elseif obj.ApparatusType==2001
+            %    P_dc = 0.6433;
+            % end
             % P_dc    = obj.PowerFlow(6);
             P_dc = -P_ac;
             Vg_dc   = obj.PowerFlow(8);
@@ -75,7 +80,7 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             % Calculate paramters
             i_d = P_ac/Vg_ac;
             i_q = -Q_ac/Vg_ac;     % Because of conjugate "i"
-           
+
             v_d = Vg_ac;
             v_q = 0;
             % syms i_d i_q
@@ -92,9 +97,11 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             i = P_dc/Vg_dc;
 
             v_dc = v - R_dc*i;
-
+            ang_r = 0;
             % Get equilibrium
-        	x_e = [i_d; i_q; theta; v_dc; i];
+            % State = {'i_d','i_q','v_dc','i','theta'};
+            % Input = {'v_d','v_q','v','ang_r'};
+        	x_e = [i_d; i_q; v_dc; i; theta];
         	u_e = [v_d; v_q; v;ang_r];
         end
 
@@ -134,11 +141,12 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             w_ref = W0;
 
             % Get states
+            % State = {'i_d','i_q','v_dc','i','theta'};
             i_d   = x(1);
             i_q   = x(2);
-            theta = x(3);
-            v_dc  = x(4);
-            i     = x(5);
+            v_dc  = x(3);
+            i     = x(4);
+            theta = x(5);
 
             % Get input
             v_d   = u(1);
@@ -171,11 +179,13 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             % ### Call state equation: dx/dt = f(x,u)
 
                 % Output state
+                % State = {'i_d','i_q','v_dc','i','theta'};
                 f_xu = [ di_d; di_q; dv_dc; d_i; dtheta];
                 Output = f_xu;
 
             elseif CallFlag == 2
           	% ### Call output equation: y = g(x,u)
+            % Output = {'i_d','i_q','i','w','v_dc','theta'};
                 g_xu = [i_d; i_q; i; w; v_dc; theta];
                 Output = g_xu;
             end

@@ -43,12 +43,12 @@ classdef InterlinkAcDc < SimplusGT.Class.ModelAdvance
             % and v_dc. This inductor makes the system admittance model
             % proper seen from the dc side. 
             if obj.ApparatusType==2000 || obj.ApparatusType==2001
-                State = {'i_d','i_q','v_dc','i','theta'};
+                State = {'i_d','i_q','v_dc','theta'};
             else
                 error('Error: Invalid ApparatusType.');
             end
-        	Input = {'v_d','v_q','v','ang_r'};        % ?ang_r
-            Output = {'i_d','i_q','i','w','v_dc','theta'};
+        	Input = {'v_d','v_q','v','ang_r','i'};        % ?ang_r
+            Output = {'i_d','i_q','w','v_dc','theta'};
         end
 
 function [x_e,u_e,xi] = Equilibrium(obj)
@@ -61,8 +61,13 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             Vg_ac   = obj.PowerFlow(3);
             xi      = obj.PowerFlow(4);
             w       = obj.PowerFlow(5);
+            % if     obj.ApparatusType==2000
+            %    P_dc = -0.6437;
+            % elseif obj.ApparatusType==2001
+            %    P_dc = 0.6433;
+            % end
             % P_dc    = obj.PowerFlow(6);
-            P_dc = -P_ac;
+            P_dc    = -P_ac;
             Vg_dc   = obj.PowerFlow(8);
 
             % Get parameters
@@ -70,32 +75,24 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             W0 = obj.Para(9);
             L_ac  = wL_ac/W0;
             R_ac  = obj.Para(3);
-            R_dc  = 0.008;
 
             % Calculate paramters
-            % i_d = P_ac/Vg_ac;
-            % i_q = -Q_ac/Vg_ac;     % Because of conjugate "i"
-           
+            i_d = P_ac/Vg_ac;
+            i_q = -Q_ac/Vg_ac;     % Because of conjugate "i"
+
             v_d = Vg_ac;
             v_q = 0;
-            syms i_d i_q
-            equ_id = (v_d - 1 + w*L_ac*i_q - R_ac*i_d)/L_ac;
-            equ_iq = (v_q - 0 - w*L_ac*i_d - R_ac*i_q)/L_ac;
-            equ_i  = [equ_id ,equ_iq];
-            [i_d,i_q] = solve(equ_i,[i_d,i_q]);
-            i_d = single(i_d);
-            i_q = single(i_q);
 
             theta = xi;
             ang_r =0;
             v = Vg_dc;
             i = P_dc/Vg_dc;
 
-            v_dc = v - R_dc*i;
-
+            v_dc = v;
+            ang_r = 0;
             % Get equilibrium
-        	x_e = [i_d; i_q; theta; v_dc; i];
-        	u_e = [v_d; v_q; v;ang_r];
+        	x_e = [i_d; i_q; v_dc; theta];
+        	u_e = [v_d; v_q; v;ang_r; i];
         end
 
         function [Output] = StateSpaceEqu(obj,x,u,CallFlag)
@@ -120,12 +117,9 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             % xfpll  = obj.Para(8);
             W0     = obj.Para(9);
 
-            xwL_dc =0.08;
             xwL_ac =0.05;
             L_ac = xwL_ac/W0;
             R_ac = 0.01;
-            L_dc = xwL_dc/W0;
-            R_dc = 0.008;
             C_dc = 1;
 
             N = 1*W0;
@@ -138,12 +132,12 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             i_q   = x(2);
             theta = x(3);
             v_dc  = x(4);
-            i     = x(5);
 
             % Get input
             v_d   = u(1);
             v_q   = u(2);
             v     = u(3);
+            i     = u(5);
 
             % State space equations
             % dx/dt = f(x,u)
@@ -164,14 +158,11 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             di_d = (v_d - e_d + w*L_ac*i_q - R_ac*i_d)/L_ac;
             di_q = (v_q - e_q - w*L_ac*i_d - R_ac*i_q)/L_ac;
 
-            % DC Line
-            d_i = (v - v_dc -i*R_dc)/L_dc;
-
             if CallFlag == 1    
             % ### Call state equation: dx/dt = f(x,u)
 
                 % Output state
-                f_xu = [ di_d; di_q; dv_dc; d_i; dtheta];
+                f_xu = [ di_d; di_q; dv_dc; dtheta];
                 Output = f_xu;
 
             elseif CallFlag == 2

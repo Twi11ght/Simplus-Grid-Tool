@@ -146,7 +146,7 @@ fprintf('Get the descriptor state space model of network lines...\n')
 ObjZbusDss = SimplusGT.ObjSwitchInOut(ObjYbusDss,length(YbusDss));
 
 % ### Get the models of bus apparatuses
-fprintf('Get the descriptor state space model of bus apparatuses...\n')
+fprintf('Get the descriptor state space model of bus apparatuses...\n') 
 for i = 1:NumApparatus
     if length(ApparatusBus{i}) == 1
      	ApparatusPowerFlow{i} = PowerFlowNew{ApparatusBus{i}};
@@ -227,29 +227,31 @@ end
 % % Modal Analysis
 % % ==================================================
 % 
-% fprintf('\n')
-% fprintf('==================================\n')
-% fprintf('Modal Analysis: State Space \n')
-% fprintf('==================================\n')
+fprintf('\n')
+fprintf('==================================\n')
+fprintf('Modal Analysis: State Space \n')
+fprintf('==================================\n')
+
 % if UserDataStruct.Advance.EnableParticipation == 1
-%     FigN = 300;
-%     EigenvalueIndex = [1,26,31];	% Choose the index of eigenvalue for participation analysis
-%     SimplusGT.Modal.ModalAnalysisStateSpace(ObjGsysSs,EigenvalueIndex,FigN);
-% else
-%     fprintf('Warning: This function is disabled.\n')
-% end
-% 
-% fprintf('\n')
-% fprintf('==================================\n')
-% fprintf('Modal Analysis: Transfer Function \n')
-% fprintf('==================================\n')
-% if 0
-%     SimplusGT.Modal.ModalPreRun;
-%     SimplusGT.Modal.ModalAnalysis;
-%     fprintf('Generate GreyboxConfg.xlsx for user to config Greybox analysis.\n');    
-% else
-%     fprintf('Warning: This function is disabled.\n');
-% end
+if 0
+    FigN = 300;
+    EigenvalueIndex = [30];	% Choose the index of eigenvalue for participation analysis
+    SimplusGT.Modal.ModalAnalysisStateSpace(ObjGsysSs,EigenvalueIndex,FigN);
+else
+    fprintf('Warning: This function is disabled.\n')
+end
+
+fprintf('\n')
+fprintf('==================================\n')
+fprintf('Modal Analysis: Transfer Function \n')
+fprintf('==================================\n')
+if 0
+    SimplusGT.Modal.ModalPreRun;
+    SimplusGT.Modal.ModalAnalysis;
+    fprintf('Generate GreyboxConfg.xlsx for user to config Greybox analysis.\n');    
+else
+    fprintf('Warning: This function is disabled.\n');
+end
 
 else
     fprintf('Warning: The state space modeling is disabled.\n');
@@ -269,6 +271,7 @@ if UserDataStruct.Advance.EnablePlotPole
     fprintf('Plot pole map...\n')
     FigN = 100;
     PlotPoleMap(EigVecHz,FigN);
+    hold on;
 else
     fprintf('Warning: The plot of pole map is disabled.\n')
 end
