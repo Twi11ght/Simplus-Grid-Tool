@@ -61,28 +61,43 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             Vg_ac   = obj.PowerFlow(3);
             xi      = obj.PowerFlow(4);
             w       = obj.PowerFlow(5);
-            % P_dc       = obj.PowerFlow(6);
-            P_dc    = -P_ac;
+            % if     obj.ApparatusType==2000
+            %    P_dc = -0.6437;
+            % elseif obj.ApparatusType==2001
+            %    P_dc = 0.6433;
+            % end
+            % P_dc    = obj.PowerFlow(6);
+            P_dc = -P_ac;
             Vg_dc   = obj.PowerFlow(8);
 
             % Get parameters
-            R_dc    = obj.Para(5);
+            wL_ac = obj.Para(2);
+            W0 = obj.Para(9);
+            L_ac  = wL_ac/W0;
+            R_ac  = obj.Para(3);
+            R_dc  = 0.008;
 
             % Calculate paramters
-            i_d     = P_ac/Vg_ac;
-            i_q     = -Q_ac/Vg_ac;     % Because of conjugate "i"
+            i_d = P_ac/Vg_ac;
+            i_q = -Q_ac/Vg_ac;     % Because of conjugate "i"
 
-            v_d     = Vg_ac;
-            v_q     = 0;
+            v_d = Vg_ac;
+            v_q = 0;
+            % syms i_d i_q
+            % equ_id = (v_d - 1 + w*L_ac*i_q - R_ac*i_d)/L_ac;
+            % equ_iq = (v_q - 0 - w*L_ac*i_d - R_ac*i_q)/L_ac;
+            % equ_i  = [equ_id ,equ_iq];
+            % [i_d,i_q] = solve(equ_i,[i_d,i_q]);
+            % i_d = single(i_d);
+            % i_q = single(i_q);
 
-            theta   = xi;
+            theta = xi;
 
-            v       = Vg_dc;
-            i       = P_dc/Vg_dc;
+            v = Vg_dc;
+            i = P_dc/Vg_dc;
 
-            v_dc    = v - R_dc*i;
-            ang_r   = 0;
-            
+            v_dc = v - R_dc*i;
+            ang_r = 0;
             % Get equilibrium
             % State = {'i_d','i_q','v_dc','i','theta'};
             % Input = {'v_d','v_q','v','ang_r'};
@@ -97,22 +112,31 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             % Vg_dc   = obj.PowerFlow(8);
 
            	% Get parameters
-            xC_dc  = obj.Para(1);
-            xwL_ac = obj.Para(2);
-            xR_ac  = obj.Para(3);
-            xwL_dc = obj.Para(4);
-            xR_dc  = obj.Para(5);
-
+            % xC_dc = 1;
+            % xwL_ac= 0.05;
+            % xR_ac= 0.01;
+            % xwL_dc= 0.05;
+            % xR_dc= 0.01;
+            % xC_dc  = obj.Para(1);
+            % xwL_ac = obj.Para(2);
+            % xR_ac  = obj.Para(3);
+            % xwL_dc = obj.Para(4);
+            % xR_dc  = obj.Para(5);
+            % xfidq  = obj.Para(6);
+            % xfvdc  = obj.Para(7);
+            % xfpll  = obj.Para(8);
             W0     = obj.Para(9);
 
+            xwL_dc =0.08;
+            xwL_ac =0.05;
             L_ac = xwL_ac/W0;
-            R_ac = xR_ac;
+            R_ac = 0.01;
             L_dc = xwL_dc/W0;
-            R_dc = xR_dc;
-            C_dc = xC_dc;
+            R_dc = 0.008;
+            C_dc = 1;
 
-            N    = 1*W0;
-            R    = 0.05;            
+            N = 1*W0;
+            R = 0.05;            
             v_dc_ref = 2;
             w_ref = W0;
 

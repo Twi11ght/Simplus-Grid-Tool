@@ -61,7 +61,6 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             Vg_ac   = obj.PowerFlow(3);
             xi      = obj.PowerFlow(4);
             w       = obj.PowerFlow(5);
-            % P_dc       = obj.PowerFlow(6);
             P_dc    = -P_ac;
             Vg_dc   = obj.PowerFlow(8);
 
@@ -114,7 +113,7 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             N    = 1*W0;
             R    = 0.05;            
             v_dc_ref = 2;
-            w_ref = W0;
+            w_ref    = W0;
 
             % Get states
             % State = {'i_d','i_q','v_dc','i','theta'};
