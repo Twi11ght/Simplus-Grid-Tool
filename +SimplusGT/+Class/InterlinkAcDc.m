@@ -118,12 +118,20 @@ function [x_e,u_e,xi] = Equilibrium(obj)
 
             % Get states
             % State = {'i_d','i_q','v_dc','i','theta'};
+            if obj.ApparatusType==2000 
             i_d   = x(1);
             i_q   = x(2);
             v_dc  = x(3);
             i     = x(4);
             theta = x(5);
-
+            elseif obj.ApparatusType==2001
+            i_d   = x(1);
+            i_q   = x(2);
+            v_dc  = x(3);
+            i     = x(4);
+            theta = x(5);   
+            end
+        
             % Get input
             v_d   = u(1);
             v_q   = u(2);
