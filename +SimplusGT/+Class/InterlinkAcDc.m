@@ -155,7 +155,6 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             % Rectifier-side inductor
             di_d = (v_d - e_d + w*L_ac*i_q - R_ac*i_d)/L_ac;
             di_q = (v_q - e_q - w*L_ac*i_d - R_ac*i_q)/L_ac;
-
             % DC Line
             d_i = (v - v_dc -i*R_dc)/L_dc;
 

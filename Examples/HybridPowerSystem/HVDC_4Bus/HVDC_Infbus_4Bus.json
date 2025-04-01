@@ -72,7 +72,7 @@
       "BusType": 1,
       "Voltage": 1,
       "Theta": 0,
-      "PGi": 0,
+      "PGi": 0.5,
       "QGi": 0,
       "PLi": 0,
       "QLi": 0,

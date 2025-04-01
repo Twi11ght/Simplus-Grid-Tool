@@ -235,7 +235,7 @@ fprintf('==================================\n')
 % if UserDataStruct.Advance.EnableParticipation == 1
 if 0
     FigN = 300;
-    EigenvalueIndex = [30];	% Choose the index of eigenvalue for participation analysis
+    EigenvalueIndex = [34];	% Choose the index of eigenvalue for participation analysis
     SimplusGT.Modal.ModalAnalysisStateSpace(ObjGsysSs,EigenvalueIndex,FigN);
 else
     fprintf('Warning: This function is disabled.\n')
