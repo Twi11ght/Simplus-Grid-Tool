@@ -105,6 +105,7 @@ classdef GridFormingVSI < SimplusGT.Class.ModelAdvance
             v_od_r = real(v_odq_r);
             v_oq_r = imag(v_odq_r);
             obj.v_od_r = v_od_r;
+            
             obj.v_oq_r = v_oq_r;
             
             % Notes:

@@ -61,8 +61,8 @@ function [x_e,u_e,xi] = Equilibrium(obj)
             Vg_ac   = obj.PowerFlow(3);
             xi      = obj.PowerFlow(4);
             w       = obj.PowerFlow(5);
-            % P_dc       = obj.PowerFlow(6);
-            P_dc    = -P_ac;
+            P_dc    = obj.PowerFlow(6);
+            % P_dc    = -P_ac;
             Vg_dc   = obj.PowerFlow(8);
 
             % Get parameters

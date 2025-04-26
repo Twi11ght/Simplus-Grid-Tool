@@ -30,8 +30,9 @@ clear all; clc; %close all;
 
 % Hybrid ac-dc power system examples:
 % UserDataName = 'Hybrid_4Bus';             % A 4-bus hybrid ac-dc system
-UserDataName = 'FFL_HVDC_4Bus_test_v2';             % A 4-bus FFL-HVDC system with GFL & inf bus on each side
-% UserDataName = 'HVDC_test';             % A 4-bus FFL-HVDC system with GFL & inf bus on each side by Wenjie Ning
+% UserDataName = 'FFL_HVDC_4Bus_test_v2';     % A 4-bus FFL-HVDC system with GFL & inf bus on each side
+UserDataName = 'MTDC_test_v1';     % A MTDC system with 2 GFL & 3FFL-VFM & 1inf bus on each side
+% UserDataName = 'HVDC_test';               % A 4-bus FFL-HVDC system with GFL & inf bus on each side by Wenjie Ning
 % UserDataName = 'Hybrid_28Bus';
 % UserDataName = 'HVDC_Infbus_4Bus';        % HVDC system connected to inf buses
 % UserDataName = 'HVDC_SG_4Bus';            % HVDC system connected to equivalent SG buses
